@@ -1,0 +1,38 @@
+services:
+  address-db:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - address-db:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    command: -p ${DB_PORT}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -p ${DB_PORT}",
+        ]
+      interval: 10s
+      start_interval: 10s
+      retries: 5
+      timeout: 10s
+  address-admin:
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${ADMIN_PORT}:80"
+    depends_on:
+      address-db:
+        condition: service_healthy
+        restart: true
+
+volumes:
+  address-db:
+
+networks:
+  address:

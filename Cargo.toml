@@ -1,0 +1,17 @@
+[package]
+name = "address-book-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+diesel = { version = "2.2.0", features = ["postgres", "r2d2"] }
+diesel_migrations = "2.2.0"
+derive_more = { version = "2.0.1", features = ["from"] }
+crossterm = "0.28.1"
+comfy-table = "7.1.4"
+rpassword = "7.3.1"
+
+[[bin]]
+name = "hab"
+path = "src/main.rs"
