@@ -50,7 +50,6 @@ pub fn read_line_hidden(stdout: &mut io::Stdout, prefix: &str) -> Result<String>
             Print(format!("{}: ", prefix))
         )?;
         input = read_password()?;
-        println!("{}", input);
         input = input.trim().to_string();
 
         if !input.is_empty() {
